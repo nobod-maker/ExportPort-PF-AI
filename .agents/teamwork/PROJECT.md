@@ -63,12 +63,12 @@
 
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
-| M1 | Foundation & Shared Contracts | Git init, Next.js App Router scaffold, Tailwind CSS, shadcn/ui base, shared TypeScript contracts (`types/index.ts`), minor-unit money utilities (`lib/money.ts`), Zod schemas (`lib/validation/order.ts`), mock data seeds (`lib/mock-data.ts`), and baseline build verification. | None | PLANNED |
-| M2 | AI Extraction & Supabase DB Module | Supabase SQL migrations (7 tables, constraints, RLS), Supabase client, AI multi-provider adapter (Gemini / OpenRouter / Deterministic Fallback), `POST /api/ai/parse-order`, and AI assistant API. | M1 | PLANNED |
-| M3 | PayPal Sandbox & Webhook Reconciliation Module | PayPal OAuth caching, Orders v2 client, `POST /api/paypal/create-order`, `POST /api/paypal/capture-order`, `POST /api/paypal/webhook`, cryptographic signature verification, event deduplication, and 4-way reconciliation logic. | M1 | PLANNED |
-| M4 | Frontend Fintech UI, Quotation, AG Grid & Checkout | Dark navy/emerald layout, Exporter KPI dashboard, raw enquiry intake, quotation editor, PayPal buttons integration, AG Grid table, timeline component, AI assistant widget, and demo controls. | M1 | PLANNED |
-| M5 | Dual Track E2E Testing & Adversarial Hardening | End-to-end integration and API tests across Tiers 1-4 (feature coverage, edge cases, cross-feature flows, real-world UAE wallet scenario) + Tier 5 white-box adversarial stress tests. | M2, M3, M4 | PLANNED |
-| M6 | Final Integration, Audit & Submission Package | Merge branches to `main`, verify lint/typecheck/build, security audit, README.md, architecture diagrams, setup/sandbox guide, timed demo script, and Devpost text. | M5 | PLANNED |
+| M1 | Foundation & Shared Contracts | Git init, Next.js App Router scaffold, Tailwind CSS, shadcn/ui base, shared TypeScript contracts (`types/index.ts`), minor-unit money utilities (`lib/money.ts`), Zod schemas (`lib/validation/order.ts`), mock data seeds (`lib/mock-data.ts`), and baseline build verification. (Output: commit `41932ac`, 72/72 tests pass, build code 0) | None | DONE |
+| M2 | AI Extraction & Supabase DB Module | Supabase SQL migrations (7 tables, constraints, RLS), Supabase client, AI multi-provider adapter (Gemini / OpenRouter / Deterministic Fallback), `POST /api/ai/parse-order`, and AI assistant API. (Output: commit `36e476b`, 25 unit tests pass) | M1 | DONE |
+| M3 | PayPal Sandbox & Webhook Reconciliation Module | PayPal OAuth caching, Orders v2 client, `POST /api/paypal/create-order`, `POST /api/paypal/capture-order`, `POST /api/paypal/webhook`, cryptographic signature verification, event deduplication, and 4-way reconciliation logic. (Output: commit `995a0b3`, 31 unit tests pass) | M1 | DONE |
+| M4 | Frontend Fintech UI, Quotation, AG Grid & Checkout | Dark navy/emerald layout, Exporter KPI dashboard, raw enquiry intake, quotation editor, PayPal buttons integration, AG Grid table, timeline component, AI assistant widget, and demo controls. (Output: commit `d50d0c2`, build code 0) | M1 | DONE |
+| M5 | Dual Track E2E Testing & Adversarial Hardening | End-to-end integration and API tests across Tiers 1-4 (feature coverage, edge cases, cross-feature flows, real-world UAE wallet scenario) + Tier 5 white-box adversarial stress tests. (Output: commit `8704b8c`, 157/157 tests pass, `TEST_READY.md`) | M2, M3, M4 | DONE |
+| M6 | Final Integration, Audit & Submission Package | Merge branches to `main`, verify lint/typecheck/build, security audit, README.md, architecture diagrams, setup/sandbox guide, timed demo script, and Devpost text. | M5 | IN_PROGRESS |
 
 ---
 
