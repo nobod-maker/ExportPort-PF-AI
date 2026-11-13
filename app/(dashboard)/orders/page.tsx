@@ -36,11 +36,11 @@ export default function OrdersPage() {
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-white/[0.08]">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
             Export Orders Management
-            <Badge variant="outline" className="text-[11px] font-mono border-emerald-500/40 text-emerald-400">
+            <Badge variant="outline" className="text-[11px] font-mono tabular-nums border-emerald-500/40 text-emerald-400">
               AG Grid Community
             </Badge>
           </h1>
@@ -60,7 +60,7 @@ export default function OrdersPage() {
             variant="outline"
             size="sm"
             onClick={handleReset}
-            className="text-xs border-slate-700/80 text-slate-300 hover:text-white"
+            className="text-xs border-white/[0.08] bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800/60 backdrop-blur-sm"
             title="Reset to 5 baseline demo orders"
           >
             <RotateCcw className="h-3.5 w-3.5 mr-1.5" />

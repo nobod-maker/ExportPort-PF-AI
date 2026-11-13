@@ -26,6 +26,7 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env
+env.txt
 
 # Playwright & test reports
 /test-results/
@@ -52,6 +53,5 @@ Thumbs.db
 *.sln
 *.sw?
 
-# Explicitly ensure agent teamwork metadata is preserved
-!.agents/
-!.agents/**
+# Agent work metadata
+.agents/

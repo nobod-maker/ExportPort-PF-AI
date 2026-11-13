@@ -227,7 +227,7 @@ async function callGeminiApi(prompt: string, systemInstruction: string): Promise
     throw new Error("GEMINI_API_KEY is not configured.");
   }
 
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
   const payload = {
     contents: [

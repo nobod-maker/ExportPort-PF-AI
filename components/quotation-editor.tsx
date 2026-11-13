@@ -192,7 +192,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
     <div className="space-y-6">
       {/* Missing Price Warning Alert */}
       {hasZeroPriceItem && (
-        <div className="p-4 rounded-xl border border-amber-500/40 bg-amber-950/40 text-amber-300 flex items-start gap-3">
+        <div className="p-4 rounded-xl border border-amber-500/40 bg-amber-950/40 backdrop-blur-md text-amber-300 flex items-start gap-3 shadow-[inset_0_1px_0_0_rgba(251,191,36,0.2)]">
           <AlertTriangle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
           <div className="text-xs space-y-1">
             <p className="font-semibold text-amber-200">Missing Price Detected by AI Guardrail</p>
@@ -205,19 +205,19 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
       )}
 
       {errorMessage && (
-        <div className="p-3.5 rounded-lg border border-rose-500/40 bg-rose-950/40 text-rose-300 text-xs flex items-center gap-2">
+        <div className="p-3.5 rounded-xl border border-rose-500/40 bg-rose-950/40 backdrop-blur-md text-rose-300 text-xs flex items-center gap-2">
           <AlertTriangle className="h-4 w-4 text-rose-400 shrink-0" />
           <span>{errorMessage}</span>
         </div>
       )}
 
       {/* Line Items Table Card */}
-      <Card className="border-slate-800 bg-slate-900/80">
-        <CardHeader className="pb-3 border-b border-slate-800">
+      <Card className="border-white/[0.08] shadow-rim-135">
+        <CardHeader className="pb-3 border-b border-white/[0.06]">
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-base text-white">Line Items Breakdown</CardTitle>
-              <CardDescription className="text-xs">
+              <CardDescription className="text-xs text-slate-400">
                 Unit prices are stored and calculated in integer minor units ($1.00 = 100 cents)
               </CardDescription>
             </div>
@@ -226,7 +226,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                 variant="outline"
                 size="sm"
                 onClick={handleAddItem}
-                className="text-xs h-8 border-slate-700 text-slate-300 hover:text-white"
+                className="text-xs h-8 border-white/[0.08] bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800/60 backdrop-blur-sm"
               >
                 <Plus className="h-3.5 w-3.5 mr-1" />
                 Add Item
@@ -237,7 +237,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
 
         <CardContent className="pt-4 overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-300">
-            <thead className="border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+            <thead className="border-b border-white/[0.08] text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
               <tr>
                 <th className="pb-2.5">Item Description</th>
                 <th className="pb-2.5 w-28">SKU</th>
@@ -247,7 +247,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                 {!readOnly && <th className="pb-2.5 w-12 text-center"></th>}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-white/[0.06]">
               {items.map((item, idx) => {
                 let unitMinor = 0;
                 try {
@@ -257,7 +257,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                 const isZero = unitMinor <= 0;
 
                 return (
-                  <tr key={idx} className="group hover:bg-slate-850/40 transition-colors">
+                  <tr key={idx} className="group hover:bg-slate-800/40 transition-colors">
                     <td className="py-2.5 pr-2">
                       {readOnly ? (
                         <span className="font-medium text-slate-200">{item.description}</span>
@@ -265,25 +265,25 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                         <Input
                           value={item.description}
                           onChange={(e) => handleItemChange(idx, "description", e.target.value)}
-                          className="h-8 text-xs bg-slate-950/80 border-slate-800"
+                          className="h-8 text-xs bg-slate-950/70 border-white/[0.08]"
                         />
                       )}
                     </td>
                     <td className="py-2.5 pr-2">
                       {readOnly ? (
-                        <span className="font-mono text-slate-400">{item.sku || "—"}</span>
+                        <span className="font-mono tabular-nums text-slate-400">{item.sku || "—"}</span>
                       ) : (
                         <Input
                           value={item.sku}
                           placeholder="e.g. HW-01"
                           onChange={(e) => handleItemChange(idx, "sku", e.target.value)}
-                          className="h-8 text-xs font-mono bg-slate-950/80 border-slate-800"
+                          className="h-8 text-xs font-mono tabular-nums bg-slate-950/70 border-white/[0.08]"
                         />
                       )}
                     </td>
                     <td className="py-2.5 pr-2">
                       {readOnly ? (
-                        <span className="font-mono text-slate-200">{item.quantity}</span>
+                        <span className="font-mono tabular-nums text-slate-200">{item.quantity}</span>
                       ) : (
                         <Input
                           type="number"
@@ -292,13 +292,13 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                           onChange={(e) =>
                             handleItemChange(idx, "quantity", parseInt(e.target.value, 10) || 1)
                           }
-                          className="h-8 text-xs font-mono bg-slate-950/80 border-slate-800"
+                          className="h-8 text-xs font-mono tabular-nums bg-slate-950/70 border-white/[0.08]"
                         />
                       )}
                     </td>
                     <td className="py-2.5 pr-2">
                       {readOnly ? (
-                        <span className="font-mono text-slate-200">${item.unitPriceDecimal}</span>
+                        <span className="font-mono tabular-nums text-slate-200">${item.unitPriceDecimal}</span>
                       ) : (
                         <div className="relative">
                           <Input
@@ -307,15 +307,15 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                             onChange={(e) =>
                               handleItemChange(idx, "unitPriceDecimal", e.target.value)
                             }
-                            className={`h-8 text-xs font-mono bg-slate-950/80 pl-6 ${
-                              isZero ? "border-amber-500/80 focus-visible:ring-amber-500" : "border-slate-800"
+                            className={`h-8 text-xs font-mono tabular-nums bg-slate-950/70 pl-6 ${
+                              isZero ? "border-amber-500/80 focus-visible:ring-amber-500" : "border-white/[0.08]"
                             }`}
                           />
                           <span className="absolute left-2.5 top-2 text-slate-500 font-mono text-xs">$</span>
                         </div>
                       )}
                     </td>
-                    <td className="py-2.5 text-right font-mono font-medium text-slate-100">
+                    <td className="py-2.5 text-right font-mono tabular-nums font-medium text-slate-100">
                       {formatMoney(lineTotalMinor, order.currency)}
                     </td>
                     {!readOnly && (
@@ -340,8 +340,8 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
 
       {/* Export Logistics, Incoterms, & Shipping Terms */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="border-slate-800 bg-slate-900/80">
-          <CardHeader className="pb-3 border-b border-slate-800">
+        <Card className="border-white/[0.08] shadow-rim-135">
+          <CardHeader className="pb-3 border-b border-white/[0.06]">
             <CardTitle className="text-sm text-white flex items-center gap-2">
               <Ship className="h-4 w-4 text-emerald-400" />
               Logistics & Incoterm Details
@@ -353,14 +353,14 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                 International Commercial Term (Incoterm)
               </label>
               {readOnly ? (
-                <div className="p-2 rounded bg-slate-950 border border-slate-800 font-mono text-emerald-400">
+                <div className="p-2 rounded-xl bg-slate-950/70 border border-white/[0.08] font-mono tabular-nums text-emerald-400">
                   {incoterm}
                 </div>
               ) : (
                 <select
                   value={incoterm}
                   onChange={(e) => setIncoterm(e.target.value as Incoterm)}
-                  className="w-full h-9 rounded-md border border-slate-800 bg-slate-950 px-3 py-1 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
+                  className="w-full h-9 rounded-xl border border-white/[0.08] bg-slate-950/70 px-3 py-1 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono tabular-nums"
                 >
                   {INCOTERMS.map((term) => (
                     <option key={term} value={term}>
@@ -376,7 +376,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                 Air Freight / Shipping Fee (USD)
               </label>
               {readOnly ? (
-                <div className="p-2 rounded bg-slate-950 border border-slate-800 font-mono text-slate-200">
+                <div className="p-2 rounded-xl bg-slate-950/70 border border-white/[0.08] font-mono tabular-nums text-slate-200">
                   {formatMoney(totals.shipping_minor, order.currency)}
                 </div>
               ) : (
@@ -385,7 +385,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                     type="text"
                     value={shippingDecimal}
                     onChange={(e) => setShippingDecimal(e.target.value)}
-                    className="h-9 text-xs font-mono bg-slate-950 border-slate-800 pl-6 text-slate-100"
+                    className="h-9 text-xs font-mono tabular-nums bg-slate-950/70 border-white/[0.08] pl-6 text-slate-100"
                     placeholder="150.00"
                   />
                   <span className="absolute left-2.5 top-2.5 text-slate-500 font-mono text-xs">$</span>
@@ -398,7 +398,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                 Seller Quotation Notes & Delivery Terms
               </label>
               {readOnly ? (
-                <p className="p-2 rounded bg-slate-950 border border-slate-800 text-slate-300">
+                <p className="p-2 rounded-xl bg-slate-950/70 border border-white/[0.08] text-slate-300">
                   {sellerNotes || "No notes"}
                 </p>
               ) : (
@@ -407,7 +407,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
                   value={sellerNotes}
                   onChange={(e) => setSellerNotes(e.target.value)}
                   placeholder="Specify delivery timeline, packing specifications, port of discharge..."
-                  className="w-full rounded-md border border-slate-800 bg-slate-950 p-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="w-full rounded-xl border border-white/[0.08] bg-slate-950/70 p-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 />
               )}
             </div>
@@ -415,12 +415,12 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
         </Card>
 
         {/* Live Authoritative Totals Recalculation Card */}
-        <Card className="border-slate-800 bg-slate-900/80 flex flex-col justify-between">
+        <Card className="border-white/[0.08] shadow-rim-135 flex flex-col justify-between">
           <div>
-            <CardHeader className="pb-3 border-b border-slate-800">
+            <CardHeader className="pb-3 border-b border-white/[0.06]">
               <CardTitle className="text-sm text-white flex items-center justify-between">
                 <span>Quotation Totals</span>
-                <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/30 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-mono tabular-nums text-emerald-400 uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/30 px-2 py-0.5 rounded">
                   Server Minor Units
                 </span>
               </CardTitle>
@@ -428,33 +428,33 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
             <CardContent className="pt-4 space-y-3 text-xs">
               <div className="flex justify-between items-center text-slate-400">
                 <span>Subtotal ({items.length} line items)</span>
-                <span className="font-mono text-slate-200 font-medium">
+                <span className="font-mono tabular-nums text-slate-200 font-medium">
                   {formatMoney(totals.subtotal_minor, order.currency)}
                 </span>
               </div>
 
               <div className="flex justify-between items-center text-slate-400">
                 <span>Air Freight Shipping ({incoterm})</span>
-                <span className="font-mono text-slate-200 font-medium">
+                <span className="font-mono tabular-nums text-slate-200 font-medium">
                   {formatMoney(totals.shipping_minor, order.currency)}
                 </span>
               </div>
 
               <div className="flex justify-between items-center text-slate-400">
                 <span>Export Tax / Duties (0.00% Export Exemption)</span>
-                <span className="font-mono text-slate-200 font-medium">
+                <span className="font-mono tabular-nums text-slate-200 font-medium">
                   {formatMoney(totals.tax_minor, order.currency)}
                 </span>
               </div>
 
-              <div className="border-t border-slate-800 pt-3 flex justify-between items-center">
+              <div className="border-t border-white/[0.06] pt-3 flex justify-between items-center">
                 <div>
                   <p className="font-bold text-white text-sm">Grand Total</p>
-                  <p className="text-[10px] text-slate-400 font-mono">
+                  <p className="text-[10px] text-slate-400 font-mono tabular-nums">
                     {totals.total_minor} cents ({order.currency})
                   </p>
                 </div>
-                <span className="font-mono text-xl font-bold text-emerald-400">
+                <span className="font-mono tabular-nums text-xl font-bold text-emerald-400">
                   {formatMoney(totals.total_minor, order.currency)}
                 </span>
               </div>
@@ -463,7 +463,7 @@ export function QuotationEditor({ order, onApprove, readOnly = false }: Quotatio
 
           {/* Action Footer */}
           {!readOnly && (
-            <div className="p-4 border-t border-slate-800 bg-slate-950/60 rounded-b-xl flex items-center justify-between">
+            <div className="p-4 border-t border-white/[0.06] bg-slate-950/50 backdrop-blur-md rounded-b-xl flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs text-slate-400">
                 <ShieldCheck className="h-4 w-4 text-emerald-400" />
                 <span>Locks pricing and enables buyer checkout</span>

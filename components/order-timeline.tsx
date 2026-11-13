@@ -85,7 +85,7 @@ export function OrderTimeline({ events = [], className }: OrderTimelineProps) {
   return (
     <div className={cn("relative space-y-4", className)}>
       {/* Vertical Connecting Line */}
-      <div className="absolute left-4 top-3 bottom-3 w-0.5 bg-slate-800" />
+      <div className="absolute left-4 top-3 bottom-3 w-0.5 bg-gradient-to-b from-emerald-500/40 via-white/[0.08] to-slate-800" />
 
       {sortedEvents.map((event, index) => {
         const isLatest = index === sortedEvents.length - 1;
@@ -95,27 +95,27 @@ export function OrderTimeline({ events = [], className }: OrderTimelineProps) {
             {/* Timeline Node Icon */}
             <div
               className={cn(
-                "relative z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-900 shadow-md shrink-0 transition-transform group-hover:scale-110",
+                "relative z-10 flex h-8 w-8 items-center justify-center rounded-full border bg-slate-900/80 backdrop-blur-md shadow-md shrink-0 transition-transform group-hover:scale-110",
                 isLatest
-                  ? "border-emerald-500/80 shadow-emerald-500/20 ring-2 ring-emerald-500/30"
-                  : "border-slate-700"
+                  ? "border-emerald-500/80 shadow-[0_0_12px_rgba(16,185,129,0.3)] ring-2 ring-emerald-500/30"
+                  : "border-white/[0.12]"
               )}
             >
               {getActorIcon(event.actor)}
             </div>
 
             {/* Event Content Card */}
-            <div className="flex-1 rounded-lg border border-slate-800/80 bg-slate-900/60 p-3.5 text-xs shadow-sm">
+            <div className="flex-1 rounded-xl border border-white/[0.08] bg-slate-900/50 backdrop-blur-md p-3.5 text-xs shadow-rim-135">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                 <div className="flex items-center gap-2">
-                  <Badge variant={getActorBadgeVariant(event.actor)} className="capitalize text-[10px] px-2 py-0">
+                  <Badge variant={getActorBadgeVariant(event.actor)} className="capitalize text-[10px] px-2 py-0 font-mono tabular-nums">
                     {event.actor}
                   </Badge>
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">
+                  <span className="font-mono tabular-nums text-[11px] text-slate-400 uppercase tracking-wider">
                     {event.event_type.replace(/_/g, " ")}
                   </span>
                 </div>
-                <span className="font-mono text-[11px] text-slate-500">
+                <span className="font-mono tabular-nums text-[11px] text-slate-400">
                   {formatTimestamp(event.created_at)}
                 </span>
               </div>
@@ -126,12 +126,12 @@ export function OrderTimeline({ events = [], className }: OrderTimelineProps) {
 
               {/* Event Metadata (if any) */}
               {event.metadata && Object.keys(event.metadata).length > 0 && (
-                <div className="mt-2.5 pt-2 border-t border-slate-800/60 flex flex-wrap gap-2 text-[11px] font-mono text-slate-400">
+                <div className="mt-2.5 pt-2 border-t border-white/[0.06] flex flex-wrap gap-2 text-[11px] font-mono tabular-nums text-slate-400">
                   {Object.entries(event.metadata).map(([k, v]) => {
                     if (v === null || v === undefined) return null;
                     const displayVal = typeof v === "object" ? JSON.stringify(v) : String(v);
                     return (
-                      <span key={k} className="px-1.5 py-0.5 rounded bg-slate-950/80 border border-slate-800">
+                      <span key={k} className="px-1.5 py-0.5 rounded-md bg-slate-950/60 backdrop-blur-sm border border-white/[0.06]">
                         <span className="text-slate-500">{k}:</span> {displayVal}
                       </span>
                     );

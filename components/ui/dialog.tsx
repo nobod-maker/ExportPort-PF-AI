@@ -31,7 +31,7 @@ export function Dialog({ open, onOpenChange, children }: DialogProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-navy-950/80 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-[#070B16]/75 backdrop-blur-[24px] backdrop-saturate-[180%] transition-opacity"
         onClick={() => onOpenChange(false)}
         aria-hidden="true"
       />
@@ -50,7 +50,7 @@ export const DialogContent = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "relative rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl text-slate-100",
+      "relative rounded-2xl border border-white/[0.12] glass-modal p-6 shadow-2xl text-slate-100",
       className
     )}
     {...props}
@@ -59,7 +59,7 @@ export const DialogContent = React.forwardRef<
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 rounded-md p-1 text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors cursor-pointer"
+        className="absolute right-4 top-4 rounded-xl p-1 text-slate-400 hover:text-slate-100 hover:bg-slate-800/60 border border-transparent hover:border-white/[0.08] transition-colors cursor-pointer"
         aria-label="Close dialog"
       >
         <X className="h-4 w-4" />
@@ -113,7 +113,7 @@ export function DialogFooter({
   return (
     <div
       className={cn(
-        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-6 pt-4 border-t border-slate-800/60",
+        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-6 pt-4 border-t border-white/[0.06]",
         className
       )}
       {...props}

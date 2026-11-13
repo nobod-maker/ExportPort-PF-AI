@@ -54,7 +54,7 @@ export default function AIAssistantPage() {
       id: "init",
       sender: "assistant",
       text: "Welcome to ExportPilot PayFlow AI Assistant. I can help optimize your export quotations, calculate trade margins, advise on Incoterms (FOB/CIF), verify PayPal Sandbox transactions, and draft international shipping terms. Select a topic below or type your question.",
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      timestamp: "Just now",
     },
   ]);
   const [input, setInput] = useState<string>("");
@@ -193,11 +193,11 @@ export default function AIAssistantPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-white/[0.08]">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
             AI Trade & Finance Assistant
-            <Badge variant="success" className="text-[11px] font-mono">
+            <Badge variant="success" className="text-[11px] font-mono tabular-nums">
               Online
             </Badge>
           </h1>
@@ -210,7 +210,7 @@ export default function AIAssistantPage() {
           variant="outline"
           size="sm"
           onClick={handleClearChat}
-          className="text-xs border-slate-700/80 text-slate-300 hover:text-white"
+          className="text-xs border-white/[0.08] bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800/60 backdrop-blur-sm"
         >
           <RotateCcw className="h-3.5 w-3.5 mr-1.5" />
           Clear Chat
@@ -225,7 +225,7 @@ export default function AIAssistantPage() {
             <button
               key={idx}
               onClick={() => handleSend(topic.query)}
-              className="p-3.5 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-850 hover:border-emerald-500/40 text-left transition-all group flex flex-col justify-between space-y-2"
+              className="p-3.5 rounded-xl border border-white/[0.08] bg-slate-900/50 backdrop-blur-md hover:bg-slate-850 hover:border-emerald-500/40 text-left transition-all group flex flex-col justify-between space-y-2 shadow-rim-135"
             >
               <div className="flex items-center gap-2">
                 <div className="h-7 w-7 rounded-lg bg-emerald-950/80 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
@@ -244,7 +244,7 @@ export default function AIAssistantPage() {
       </div>
 
       {/* Main Chat Conversation Card */}
-      <Card className="border-slate-800 bg-slate-900/80 shadow-2xl flex flex-col h-[600px] overflow-hidden">
+      <Card className="border-white/[0.08] bg-slate-900/60 backdrop-blur-spatial backdrop-saturate-spatial shadow-rim-135 flex flex-col h-[600px] overflow-hidden rounded-2xl">
         {/* Messages Stream */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 text-xs sm:text-sm">
           {messages.map((m) => (
@@ -253,8 +253,8 @@ export default function AIAssistantPage() {
               className={cn(
                 "flex flex-col max-w-[85%] rounded-2xl p-4 space-y-1.5 shadow-sm",
                 m.sender === "user"
-                  ? "ml-auto bg-emerald-600 text-white rounded-br-none"
-                  : "mr-auto bg-slate-950/90 border border-slate-800 text-slate-200 rounded-bl-none"
+                  ? "ml-auto bg-gradient-to-br from-emerald-500 to-emerald-600 text-slate-950 font-medium rounded-br-none shadow-md shadow-emerald-500/20"
+                  : "mr-auto bg-slate-900/70 backdrop-blur-md border border-white/[0.08] text-slate-100 rounded-bl-none"
               )}
             >
               <div className="whitespace-pre-wrap leading-relaxed font-sans prose prose-invert max-w-none text-xs sm:text-sm">
@@ -262,8 +262,8 @@ export default function AIAssistantPage() {
               </div>
               <span
                 className={cn(
-                  "text-[10px] self-end font-mono",
-                  m.sender === "user" ? "text-emerald-200" : "text-slate-500"
+                  "text-[10px] self-end font-mono tabular-nums",
+                  m.sender === "user" ? "text-emerald-950/80 font-semibold" : "text-slate-500"
                 )}
               >
                 {m.timestamp}
@@ -272,7 +272,7 @@ export default function AIAssistantPage() {
           ))}
 
           {isLoading && (
-            <div className="mr-auto bg-slate-950 border border-slate-800 rounded-2xl rounded-bl-none p-4 text-xs text-slate-400 flex items-center gap-3">
+            <div className="mr-auto bg-slate-900/70 backdrop-blur-md border border-white/[0.08] rounded-2xl rounded-bl-none p-4 text-xs text-slate-400 flex items-center gap-3">
               <div className="h-4 w-4 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin" />
               <span>Analyzing trade data and computing financial metrics...</span>
             </div>
@@ -281,14 +281,14 @@ export default function AIAssistantPage() {
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950/80 flex gap-3">
+        <div className="p-4 border-t border-white/[0.08] bg-slate-950/70 backdrop-blur-md flex gap-3">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             placeholder="Type your export trade question (e.g., 'What is the gross margin for 100 wallets?')..."
             disabled={isLoading}
-            className="h-10 text-xs sm:text-sm bg-slate-900 border-slate-800 text-slate-100 placeholder:text-slate-500"
+            className="h-10 text-xs sm:text-sm bg-slate-950/80 border-white/[0.08] text-slate-100 placeholder:text-slate-500"
           />
           <Button
             onClick={() => handleSend()}

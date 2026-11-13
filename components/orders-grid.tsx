@@ -103,7 +103,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
                   ? `/orders/${params.data.id}/pay`
                   : `/orders/${params.data.id}/quote`
               }
-              className="font-mono text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1.5"
+              className="font-mono tabular-nums text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1.5"
             >
               <span>{params.value}</span>
             </Link>
@@ -138,7 +138,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
         cellRenderer: (params: ICellRendererParams<ExportOrder>) => {
           const code = params.value || "—";
           return (
-            <span className="font-mono font-medium text-slate-300 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60 text-xs">
+            <span className="font-mono tabular-nums font-medium text-slate-300 bg-slate-900/80 px-2 py-0.5 rounded border border-white/[0.08] text-xs">
               {code}
             </span>
           );
@@ -151,7 +151,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
         cellRenderer: (params: ICellRendererParams<ExportOrder>) => {
           const term = params.value || "FOB";
           return (
-            <span className="font-mono text-xs text-sky-400 font-medium">
+            <span className="font-mono tabular-nums text-xs text-sky-400 font-medium">
               {term}
             </span>
           );
@@ -174,9 +174,9 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
 
           return (
             <span className="text-xs text-slate-300 truncate block">
-              <strong className="text-slate-100 font-mono">{first.quantity}x</strong>{" "}
+              <strong className="text-slate-100 font-mono tabular-nums">{first.quantity}x</strong>{" "}
               {first.description}
-              {extra && <span className="text-slate-400 text-[11px]">{extra}</span>}
+              {extra && <span className="text-slate-400 text-[11px] font-mono tabular-nums">{extra}</span>}
             </span>
           );
         },
@@ -190,7 +190,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
         cellRenderer: (params: ICellRendererParams<ExportOrder>) => {
           if (!params.data) return null;
           return (
-            <span className="font-mono font-bold text-white text-sm">
+            <span className="font-mono tabular-nums font-bold text-white text-sm">
               {formatMoney(params.data.total_minor, params.data.currency)}
             </span>
           );
@@ -209,13 +209,14 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
         headerName: "Created",
         field: "created_at",
         width: 120,
-        valueFormatter: (params) => {
+        cellRenderer: (params: ICellRendererParams<ExportOrder>) => {
           if (!params.value) return "—";
           try {
-            return new Date(params.value).toLocaleDateString("en-US", {
+            const formatted = new Date(params.value).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",
             });
+            return <span className="font-mono tabular-nums text-slate-300 text-xs">{formatted}</span>;
           } catch {
             return params.value;
           }
@@ -277,7 +278,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
   return (
     <div className="space-y-4">
       {/* Controls Bar: Search, Status Filter Tabs, and Export */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-slate-900/60 backdrop-blur-md p-3 rounded-2xl border border-white/[0.08] shadow-rim-135">
         {/* Status Filters */}
         <div className="flex flex-wrap items-center gap-1.5">
           {[
@@ -292,12 +293,12 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
               onClick={() => setStatusFilter(tab.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 ${
                 statusFilter === tab.id
-                  ? "bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 shadow-sm"
-                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                  ? "bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 shadow-[inset_0_1px_0_0_rgba(52,211,153,0.2)]"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent"
               }`}
             >
               <span>{tab.label}</span>
-              <span className="text-[10px] font-mono px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300">
+              <span className="text-[10px] font-mono tabular-nums px-1.5 py-0.2 rounded-full bg-slate-800/80 text-slate-300 border border-white/[0.04]">
                 {tab.count}
               </span>
             </button>
@@ -312,7 +313,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
               placeholder="Search orders, buyer, items..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="h-8 text-xs bg-slate-950/80 border-slate-800 pl-8 pr-3 text-slate-200 placeholder:text-slate-500 w-full"
+              className="h-8 text-xs bg-slate-950/70 border-white/[0.08] pl-8 pr-3 text-slate-200 placeholder:text-slate-500 w-full"
             />
           </div>
 
@@ -320,7 +321,7 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
             variant="outline"
             size="sm"
             onClick={handleExportCsv}
-            className="h-8 text-xs border-slate-700/80 text-slate-300 hover:text-white shrink-0"
+            className="h-8 text-xs border-white/[0.08] bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800/60 backdrop-blur-sm shrink-0"
             title="Export orders to CSV"
           >
             <Download className="h-3.5 w-3.5 mr-1.5" />
@@ -330,8 +331,9 @@ export function OrdersGrid({ orders, onRefresh }: OrdersGridProps) {
       </div>
 
       {/* AG Grid Container */}
-      <div className="ag-theme-quartz-dark rounded-xl border border-slate-800 overflow-hidden shadow-xl" style={{ height: 480, width: "100%" }}>
+      <div className="ag-theme-quartz-dark rounded-2xl border border-white/[0.08] bg-slate-900/60 backdrop-blur-spatial backdrop-saturate-spatial shadow-rim-135 overflow-hidden" style={{ height: 480, width: "100%" }}>
         <AgGridReact
+          theme="legacy"
           rowData={filteredOrders}
           columnDefs={columnDefs}
           defaultColDef={{

@@ -107,18 +107,18 @@ export default function DashboardPage() {
       {/* KPI Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Export Volume */}
-        <Card className="border-slate-800 bg-slate-900/80 relative overflow-hidden">
+        <Card className="border-white/[0.08] shadow-rim-135 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <TrendingUp className="h-16 w-16 text-emerald-400" />
           </div>
           <CardContent className="pt-5 space-y-2">
             <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
               <span>Total Pipeline Volume</span>
-              <span className="text-emerald-400 flex items-center gap-1 font-mono text-[11px]">
+              <span className="text-emerald-400 flex items-center gap-1 font-mono tabular-nums text-[11px]">
                 +18.4% MoM
               </span>
             </div>
-            <p className="text-2xl font-extrabold text-white font-mono tracking-tight">
+            <p className="text-2xl font-extrabold text-white font-mono tabular-nums tracking-tight">
               {formatMoney(totalVolumeMinor)}
             </p>
             <p className="text-[11px] text-slate-500">
@@ -128,18 +128,18 @@ export default function DashboardPage() {
         </Card>
 
         {/* Settled Funds */}
-        <Card className="border-slate-800 bg-slate-900/80 relative overflow-hidden">
+        <Card className="border-white/[0.08] shadow-rim-135 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 opacity-10">
             <ShieldCheck className="h-16 w-16 text-emerald-400" />
           </div>
           <CardContent className="pt-5 space-y-2">
             <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
               <span>Settled Funds (PayPal)</span>
-              <Badge variant="success" className="text-[10px] py-0">
+              <Badge variant="success" className="text-[10px] py-0 font-mono tabular-nums">
                 Captured
               </Badge>
             </div>
-            <p className="text-2xl font-extrabold text-emerald-400 font-mono tracking-tight">
+            <p className="text-2xl font-extrabold text-emerald-400 font-mono tabular-nums tracking-tight">
               {formatMoney(settledFundsMinor)}
             </p>
             <p className="text-[11px] text-slate-500">
@@ -149,13 +149,13 @@ export default function DashboardPage() {
         </Card>
 
         {/* Active Orders */}
-        <Card className="border-slate-800 bg-slate-900/80">
+        <Card className="border-white/[0.08] shadow-rim-135">
           <CardContent className="pt-5 space-y-2">
             <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
               <span>Active In-Flight Orders</span>
               <span className="h-2 w-2 rounded-full bg-sky-400 animate-ping" />
             </div>
-            <p className="text-2xl font-extrabold text-slate-100 font-mono tracking-tight">
+            <p className="text-2xl font-extrabold text-slate-100 font-mono tabular-nums tracking-tight">
               {activeOrdersCount}
             </p>
             <p className="text-[11px] text-slate-500">
@@ -165,15 +165,15 @@ export default function DashboardPage() {
         </Card>
 
         {/* Pending Quotations */}
-        <Card className="border-slate-800 bg-slate-900/80">
+        <Card className="border-white/[0.08] shadow-rim-135">
           <CardContent className="pt-5 space-y-2">
             <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
               <span>Pending Seller Review</span>
-              <Badge variant={pendingQuotesCount > 0 ? "warning" : "secondary"} className="text-[10px] py-0">
+              <Badge variant={pendingQuotesCount > 0 ? "warning" : "secondary"} className="text-[10px] py-0 font-mono tabular-nums">
                 {pendingQuotesCount > 0 ? "Action Required" : "Up to date"}
               </Badge>
             </div>
-            <p className="text-2xl font-extrabold text-amber-300 font-mono tracking-tight">
+            <p className="text-2xl font-extrabold text-amber-300 font-mono tabular-nums tracking-tight">
               {pendingQuotesCount}
             </p>
             <p className="text-[11px] text-slate-500">
@@ -185,16 +185,16 @@ export default function DashboardPage() {
 
       {/* Featured Hackathon Hero: Authoritative UAE Leather Wallets Order Spotlight */}
       {primaryOrder && (
-        <Card className="border-slate-800 bg-gradient-to-r from-slate-900 via-slate-900/90 to-emerald-950/20 shadow-xl relative overflow-hidden">
+        <Card className="border-white/[0.1] bg-gradient-to-r from-slate-900/80 via-slate-900/60 to-emerald-950/20 shadow-rim-135 relative overflow-hidden rounded-2xl">
           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
-          <CardHeader className="pb-3 border-b border-slate-800/80">
+          <CardHeader className="pb-3 border-b border-white/[0.06]">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="font-mono text-xs text-emerald-400 border-emerald-500/30">
+                  <Badge variant="outline" className="font-mono tabular-nums text-xs text-emerald-400 border-emerald-500/30">
                     Primary Demo Scenario • {primaryOrder.order_number}
                   </Badge>
-                  <Badge variant={primaryOrder.status === "paid" ? "success" : "info"} className="capitalize">
+                  <Badge variant={primaryOrder.status === "paid" ? "success" : "info"} className="capitalize font-mono tabular-nums">
                     {primaryOrder.status.replace(/_/g, " ")}
                   </Badge>
                 </div>
@@ -209,7 +209,7 @@ export default function DashboardPage() {
 
               <div className="text-right">
                 <p className="text-xs text-slate-400">Total Quoted Value</p>
-                <p className="text-2xl font-mono font-extrabold text-emerald-400">
+                <p className="text-2xl font-mono tabular-nums font-extrabold text-emerald-400">
                   {formatMoney(primaryOrder.total_minor, primaryOrder.currency)}
                 </p>
               </div>
@@ -218,34 +218,34 @@ export default function DashboardPage() {
 
           <CardContent className="pt-4 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
+              <div className="p-3 rounded-xl bg-slate-950/50 backdrop-blur-md border border-white/[0.06] space-y-1">
                 <span className="text-slate-500 text-[10px] uppercase block font-semibold">Goods & Volume</span>
                 <span className="text-slate-200 font-medium">100 units Handcrafted Leather Wallets</span>
-                <span className="text-slate-500 block font-mono text-[10px]">SKU: HW-WL-01 • FOB Quoted</span>
+                <span className="text-slate-500 block font-mono tabular-nums text-[10px]">SKU: HW-WL-01 • FOB Quoted</span>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
+              <div className="p-3 rounded-xl bg-slate-950/50 backdrop-blur-md border border-white/[0.06] space-y-1">
                 <span className="text-slate-500 text-[10px] uppercase block font-semibold">Pricing Structure</span>
-                <span className="text-slate-200 font-medium">
+                <span className="text-slate-200 font-medium font-mono tabular-nums">
                   100 × $35.00/unit = $3,500.00 USD
                 </span>
-                <span className="text-slate-500 block font-mono text-[10px]">+ $150.00 Air Cargo = $3,650.00</span>
+                <span className="text-slate-500 block font-mono tabular-nums text-[10px]">+ $150.00 Air Cargo = $3,650.00</span>
               </div>
 
-              <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
+              <div className="p-3 rounded-xl bg-slate-950/50 backdrop-blur-md border border-white/[0.06] space-y-1">
                 <span className="text-slate-500 text-[10px] uppercase block font-semibold">PayPal Integration</span>
                 <span className="text-slate-200 font-medium flex items-center gap-1.5">
                   <CreditCard className="h-3.5 w-3.5 text-sky-400" />
                   Sandbox Orders v2 Ready
                 </span>
-                <span className="text-slate-500 block font-mono text-[10px]">Capture & Webhook Verified</span>
+                <span className="text-slate-500 block font-mono tabular-nums text-[10px]">Capture & Webhook Verified</span>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
               <p className="text-xs text-slate-400 flex items-center gap-1.5">
                 <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                <span>Zero-Float integer minor unit arithmetic (365,000 cents)</span>
+                <span>Zero-Float integer minor unit arithmetic <span className="font-mono tabular-nums">(365,000 cents)</span></span>
               </p>
 
               <div className="flex items-center gap-2">
@@ -278,17 +278,17 @@ export default function DashboardPage() {
             </p>
           </div>
           <Link href="/orders">
-            <Button variant="outline" size="sm" className="text-xs border-slate-700 text-slate-300 hover:text-white">
+            <Button variant="outline" size="sm" className="text-xs border-white/[0.08] bg-slate-900/40 text-slate-300 hover:text-white hover:bg-slate-800/60 backdrop-blur-sm">
               Open Full AG Grid Table
               <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
             </Button>
           </Link>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-lg">
+        <div className="rounded-2xl border border-white/[0.08] bg-slate-900/50 backdrop-blur-md overflow-hidden shadow-rim-135">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="border-b border-slate-800 bg-slate-950/60 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <thead className="border-b border-white/[0.08] bg-slate-950/60 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Order #</th>
                   <th className="py-3 px-4">Buyer / Importer</th>
@@ -299,10 +299,10 @@ export default function DashboardPage() {
                   <th className="py-3 px-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-white/[0.06]">
                 {orders.slice(0, 5).map((ord) => (
-                  <tr key={ord.id} className="hover:bg-slate-850/40 transition-colors">
-                    <td className="py-3 px-4 font-mono font-semibold text-emerald-400">
+                  <tr key={ord.id} className="hover:bg-slate-800/40 transition-colors">
+                    <td className="py-3 px-4 font-mono tabular-nums font-semibold text-emerald-400">
                       <Link
                         href={
                           ord.status === "paid"
@@ -317,25 +317,25 @@ export default function DashboardPage() {
                     <td className="py-3 px-4 font-medium text-slate-200">
                       <div>
                         <p>{ord.buyer?.company_name || ord.buyer?.name || "Direct Enquiry"}</p>
-                        <p className="text-[10px] text-slate-500 font-mono">{ord.buyer?.email || ""}</p>
+                        <p className="text-[10px] text-slate-500 font-mono tabular-nums">{ord.buyer?.email || ""}</p>
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="font-mono text-slate-300 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60 text-[11px]">
+                      <span className="font-mono tabular-nums text-slate-300 bg-slate-800/80 px-2 py-0.5 rounded border border-white/[0.08] text-[11px]">
                         {ord.destination_country}
                       </span>
                     </td>
                     <td className="py-3 px-4 text-slate-300 truncate max-w-[200px]">
                       {ord.items && ord.items.length > 0 ? (
                         <span>
-                          <strong className="text-white font-mono">{ord.items[0].quantity}x</strong>{" "}
+                          <strong className="text-white font-mono tabular-nums">{ord.items[0].quantity}x</strong>{" "}
                           {ord.items[0].description}
                         </span>
                       ) : (
                         "—"
                       )}
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-white">
+                    <td className="py-3 px-4 text-right font-mono tabular-nums font-bold text-white">
                       {formatMoney(ord.total_minor, ord.currency)}
                     </td>
                     <td className="py-3 px-4">
@@ -349,7 +349,7 @@ export default function DashboardPage() {
                             ? "warning"
                             : "secondary"
                         }
-                        className="capitalize text-[10px]"
+                        className="capitalize text-[10px] font-mono tabular-nums"
                       >
                         {ord.status.replace(/_/g, " ")}
                       </Badge>

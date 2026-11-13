@@ -134,10 +134,10 @@ export default function NewOrderEnquiryPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="pb-2 border-b border-slate-800">
+      <div className="pb-2 border-b border-white/[0.08]">
         <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-3">
           Raw Enquiry Intake & AI Extraction
-          <Badge variant="outline" className="text-[11px] font-mono border-emerald-500/40 text-emerald-400">
+          <Badge variant="outline" className="text-[11px] font-mono tabular-nums border-emerald-500/40 text-emerald-400">
             Zero Hallucination
           </Badge>
         </h1>
@@ -149,12 +149,12 @@ export default function NewOrderEnquiryPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Input Box */}
         <div className="lg:col-span-7 space-y-4">
-          <Card className="border-slate-800 bg-slate-900/80">
-            <CardHeader className="pb-3 border-b border-slate-800">
+          <Card className="border-white/[0.08] shadow-rim-135">
+            <CardHeader className="pb-3 border-b border-white/[0.06]">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <CardTitle className="text-base text-white">Buyer Message Intake</CardTitle>
-                  <CardDescription className="text-xs">
+                  <CardDescription className="text-xs text-slate-400">
                     Paste raw customer enquiry text below
                   </CardDescription>
                 </div>
@@ -178,11 +178,11 @@ export default function NewOrderEnquiryPage() {
                 value={inquiryText}
                 onChange={(e) => setInquiryText(e.target.value)}
                 placeholder="Example: Hello, this is Tariq Al-Mansoor from Al-Mansoor Luxury Goods LLC, Dubai, UAE (email: tariq.mansoor@almansoor-luxury.ae). We urgently require an export batch of 100 units of your handcrafted genuine leather wallets (Item code: HW-WL-01). Destination port is Dubai International Cargo Terminal (DXB)..."
-                className="w-full rounded-xl border border-slate-800 bg-slate-950 p-3.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-sans leading-relaxed"
+                className="w-full rounded-xl border border-white/[0.08] bg-slate-950/70 p-3.5 text-xs sm:text-sm text-slate-100 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-sans leading-relaxed"
               />
 
               {errorMessage && (
-                <div className="p-3 rounded-lg border border-rose-500/40 bg-rose-950/40 text-rose-300 text-xs flex items-center gap-2">
+                <div className="p-3 rounded-xl border border-rose-500/40 bg-rose-950/40 backdrop-blur-md text-rose-300 text-xs flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 text-rose-400 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
@@ -195,7 +195,7 @@ export default function NewOrderEnquiryPage() {
                   <select
                     value={provider}
                     onChange={(e) => setProvider(e.target.value as AIProvider)}
-                    className="h-8 rounded-md border border-slate-800 bg-slate-950 px-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    className="h-8 rounded-xl border border-white/[0.08] bg-slate-950/70 px-2.5 text-xs text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono tabular-nums"
                   >
                     <option value="auto">Auto (Gemini Free / Fallback)</option>
                     <option value="gemini">Google Gemini 1.5/2.0 Flash</option>
@@ -218,7 +218,7 @@ export default function NewOrderEnquiryPage() {
           </Card>
 
           {/* AI Guardrail Info Callout */}
-          <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/40 text-xs text-slate-400 space-y-1.5">
+          <div className="p-4 rounded-xl border border-white/[0.08] bg-slate-900/40 backdrop-blur-md text-xs text-slate-400 space-y-1.5">
             <p className="font-semibold text-slate-200 flex items-center gap-2">
               <ShieldAlert className="h-4 w-4 text-emerald-400" />
               Anti-Hallucination & Security Guardrails Active
@@ -231,16 +231,16 @@ export default function NewOrderEnquiryPage() {
 
         {/* Right Column: Real-time Extraction Results Card */}
         <div className="lg:col-span-5 space-y-4">
-          <Card className="border-slate-800 bg-slate-900/90 shadow-xl relative overflow-hidden">
-            <CardHeader className="pb-3 border-b border-slate-800">
+          <Card className="border-white/[0.08] shadow-rim-135 relative overflow-hidden">
+            <CardHeader className="pb-3 border-b border-white/[0.06]">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-sm font-bold text-white flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                   Extraction Result
                 </CardTitle>
                 {extractionResult && (
-                  <Badge variant="outline" className="text-[10px] font-mono text-emerald-400 border-emerald-500/40">
-                    Confidence: Math.round({Math.round((extractionResult.confidence_score || 0.95) * 100)}%)
+                  <Badge variant="outline" className="text-[10px] font-mono tabular-nums text-emerald-400 border-emerald-500/40">
+                    Confidence: {Math.round((extractionResult.confidence_score || 0.95) * 100)}%
                   </Badge>
                 )}
               </div>
@@ -268,7 +268,7 @@ export default function NewOrderEnquiryPage() {
                 <div className="space-y-4">
                   {/* Transparent Fallback Banner */}
                   {extractionResult.is_fallback && (
-                    <div className="p-3 rounded-lg border border-sky-500/40 bg-sky-950/40 text-sky-300 text-[11px] space-y-1">
+                    <div className="p-3 rounded-xl border border-sky-500/30 bg-sky-950/40 backdrop-blur-md text-sky-200 text-[11px] space-y-1 shadow-[inset_0_1px_0_0_rgba(56,189,248,0.2)]">
                       <p className="font-semibold flex items-center gap-1.5 text-sky-200">
                         <Sparkles className="h-3.5 w-3.5" />
                         Verified Deterministic Sample Loaded
@@ -280,7 +280,7 @@ export default function NewOrderEnquiryPage() {
                   )}
 
                   {/* Buyer Details */}
-                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 space-y-2">
+                  <div className="p-3.5 rounded-xl bg-slate-950/50 backdrop-blur-md border border-white/[0.06] space-y-2">
                     <span className="text-[10px] uppercase font-semibold text-slate-500 block">
                       Buyer Specifications
                     </span>
@@ -301,21 +301,21 @@ export default function NewOrderEnquiryPage() {
                   </div>
 
                   {/* Items Extracted */}
-                  <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800 space-y-2">
+                  <div className="p-3.5 rounded-xl bg-slate-950/50 backdrop-blur-md border border-white/[0.06] space-y-2">
                     <span className="text-[10px] uppercase font-semibold text-slate-500 block">
                       Extracted Items ({extractionResult.items.length})
                     </span>
                     {extractionResult.items.map((item, i) => (
-                      <div key={i} className="flex justify-between items-start text-slate-300 pb-1 border-b border-slate-800/60 last:border-0 last:pb-0">
+                      <div key={i} className="flex justify-between items-start text-slate-300 pb-1 border-b border-white/[0.06] last:border-0 last:pb-0">
                         <div>
                           <p className="font-medium text-slate-100">{item.description}</p>
                           {item.sku && (
-                            <span className="text-[10px] font-mono text-slate-400">
+                            <span className="text-[10px] font-mono tabular-nums text-slate-400">
                               SKU: {item.sku}
                             </span>
                           )}
                         </div>
-                        <span className="font-mono font-bold text-emerald-400">
+                        <span className="font-mono tabular-nums font-bold text-emerald-400">
                           {item.quantity} units
                         </span>
                       </div>
@@ -324,12 +324,12 @@ export default function NewOrderEnquiryPage() {
 
                   {/* Missing Fields Alerts */}
                   {extractionResult.missing_fields && extractionResult.missing_fields.length > 0 && (
-                    <div className="p-3 rounded-lg border border-amber-500/40 bg-amber-950/30 space-y-1.5 text-amber-300 text-[11px]">
+                    <div className="p-3.5 rounded-xl border border-amber-500/30 bg-amber-950/30 backdrop-blur-md space-y-1.5 text-amber-200 text-[11px] shadow-[inset_0_1px_0_0_rgba(251,191,36,0.2)]">
                       <p className="font-semibold text-amber-200 flex items-center gap-1.5">
                         <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
                         Missing Fields Flagged for Exporter Quote
                       </p>
-                      <ul className="list-disc list-inside space-y-0.5 text-amber-300/90 font-mono">
+                      <ul className="list-disc list-inside space-y-0.5 text-amber-300/90 font-mono tabular-nums">
                         {extractionResult.missing_fields.map((mf, idx) => (
                           <li key={idx}>
                             {mf === "unit_price_minor"

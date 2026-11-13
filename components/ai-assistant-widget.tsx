@@ -46,7 +46,7 @@ export function AIAssistantWidget() {
       id: "msg-1",
       sender: "assistant",
       text: "Hello! I am your ExportPilot AI Trade & Finance Assistant. Ask me anything about your export orders, UAE customs, Incoterms (FOB/CIF), or PayPal payment reconciliation.",
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      timestamp: "Just now",
     },
   ]);
 
@@ -156,22 +156,22 @@ export function AIAssistantWidget() {
       {isOpen && (
         <div
           className={cn(
-            "rounded-2xl border border-slate-800 bg-[#0A0F1D]/95 backdrop-blur-xl shadow-2xl flex flex-col overflow-hidden transition-all duration-200",
+            "rounded-2xl glass-modal shadow-2xl flex flex-col overflow-hidden transition-all duration-200",
             isExpanded
               ? "w-[92vw] sm:w-[600px] h-[80vh] max-h-[750px]"
               : "w-[92vw] sm:w-[400px] h-[520px]"
           )}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-slate-900/80">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-slate-900/60 backdrop-blur-md">
             <div className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+              <div className="h-8 w-8 rounded-lg bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
                 <Bot className="h-4 w-4" />
               </div>
               <div>
                 <h3 className="text-xs font-bold text-white flex items-center gap-1.5">
                   ExportPilot AI Assistant
-                  <Badge variant="success" className="text-[9px] py-0 px-1">
+                  <Badge variant="success" className="text-[9px] py-0 px-1 font-mono tabular-nums">
                     Online
                   </Badge>
                 </h3>
@@ -203,17 +203,17 @@ export function AIAssistantWidget() {
               <div
                 key={m.id}
                 className={cn(
-                  "flex flex-col max-w-[85%] rounded-xl p-3 space-y-1",
+                  "flex flex-col max-w-[85%] p-3 space-y-1",
                   m.sender === "user"
-                    ? "ml-auto bg-emerald-600 text-white rounded-br-none"
-                    : "mr-auto bg-slate-900 border border-slate-800 text-slate-200 rounded-bl-none"
+                    ? "ml-auto bg-gradient-to-br from-emerald-500 to-emerald-600 text-slate-950 font-medium rounded-2xl rounded-br-none shadow-md shadow-emerald-500/20"
+                    : "mr-auto bg-slate-900/70 backdrop-blur-md border border-white/[0.08] text-slate-100 rounded-2xl rounded-bl-none shadow-sm"
                 )}
               >
                 <div className="whitespace-pre-wrap leading-relaxed">{m.text}</div>
                 <span
                   className={cn(
-                    "text-[9px] self-end font-mono",
-                    m.sender === "user" ? "text-emerald-200" : "text-slate-500"
+                    "text-[9px] self-end font-mono tabular-nums",
+                    m.sender === "user" ? "text-emerald-950/80 font-semibold" : "text-slate-500"
                   )}
                 >
                   {m.timestamp}
@@ -222,7 +222,7 @@ export function AIAssistantWidget() {
             ))}
 
             {isLoading && (
-              <div className="mr-auto bg-slate-900 border border-slate-800 rounded-xl rounded-bl-none p-3 text-xs text-slate-400 flex items-center gap-2">
+              <div className="mr-auto bg-slate-900/70 backdrop-blur-md border border-white/[0.08] rounded-2xl rounded-bl-none p-3 text-xs text-slate-400 flex items-center gap-2">
                 <div className="h-3.5 w-3.5 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin" />
                 Analyzing trade context...
               </div>
@@ -231,13 +231,13 @@ export function AIAssistantWidget() {
           </div>
 
           {/* Quick Prompt Chips */}
-          <div className="px-3 py-2 border-t border-slate-800/80 bg-slate-950/60 overflow-x-auto flex gap-1.5 no-scrollbar">
+          <div className="px-3 py-2 border-t border-white/[0.06] bg-slate-950/60 backdrop-blur-md overflow-x-auto flex gap-1.5 no-scrollbar">
             {QUICK_PROMPTS.map((prompt, idx) => (
               <button
                 key={idx}
                 onClick={() => handleSend(prompt)}
                 disabled={isLoading}
-                className="whitespace-nowrap px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 hover:border-emerald-500/40 text-[10px] text-slate-300 hover:text-emerald-300 transition-colors shrink-0"
+                className="whitespace-nowrap px-2.5 py-1 rounded-full bg-slate-900/60 backdrop-blur-sm border border-white/[0.08] hover:border-emerald-500/40 text-[10px] text-slate-300 hover:text-emerald-300 transition-colors shrink-0"
               >
                 {prompt}
               </button>
@@ -245,14 +245,14 @@ export function AIAssistantWidget() {
           </div>
 
           {/* Input Box */}
-          <div className="p-3 border-t border-slate-800 bg-slate-900/90 flex gap-2">
+          <div className="p-3 border-t border-white/[0.08] bg-slate-950/70 backdrop-blur-md flex gap-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Ask about orders, Incoterms, PayPal capture..."
               disabled={isLoading}
-              className="h-9 text-xs bg-slate-950 border-slate-800 text-slate-200 placeholder:text-slate-500"
+              className="h-9 text-xs bg-slate-950/80 border-white/[0.08] text-slate-200 placeholder:text-slate-500"
             />
             <Button
               onClick={() => handleSend()}

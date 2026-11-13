@@ -9,8 +9,199 @@
   }
 
   body {
-    @apply bg-navy-900 text-slate-100 antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200;
+    @apply bg-navy-950 text-slate-100 antialiased min-h-screen selection:bg-emerald-500/30 selection:text-emerald-200 font-sans;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Apple Spatial Ambient Illumination Canvas */
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.07), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 85% 60%, rgba(14, 165, 233, 0.04), transparent 60%),
+      radial-gradient(ellipse 50% 30% at 15% 85%, rgba(16, 185, 129, 0.03), transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+/* =========================================================================
+   Apple Spatial Glass Utility System (Standard Balanced Translucency)
+   - Blur: 24px
+   - Saturation: 180%
+   - Borders: 0.08 alpha (rgba(255,255,255,0.08))
+   - Specular Rim Light: 135-degree linear-gradient + inset bevel highlight
+   ========================================================================= */
+
+@layer components {
+  /* Standard Spatial Glass Panel */
+  .glass-panel {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.015) 40%,
+      rgba(15, 23, 42, 0.65) 100%
+    );
+    background-color: rgba(10, 15, 29, 0.70);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.12),
+      inset -1px -1px 0 0 rgba(255, 255, 255, 0.02),
+      0 8px 32px 0 rgba(0, 0, 0, 0.36);
+  }
+
+  /* Interactive Hover Glass Panel */
+  .glass-panel-interactive {
+    @apply glass-panel;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-panel-interactive:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.025) 40%,
+      rgba(15, 23, 42, 0.70) 100%
+    );
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow:
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.20),
+      inset -1px -1px 0 0 rgba(255, 255, 255, 0.04),
+      0 12px 40px -8px rgba(0, 0, 0, 0.45);
+    transform: translateY(-1px);
+  }
+
+  /* Luminous Emerald Accent Glass Panel (Approved / Paid States) */
+  .glass-panel-emerald {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.12) 0%,
+      rgba(6, 78, 59, 0.06) 40%,
+      rgba(10, 15, 29, 0.75) 100%
+    );
+    background-color: rgba(10, 15, 29, 0.75);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    box-shadow:
+      inset 1px 1px 0 0 rgba(52, 211, 153, 0.25),
+      inset -1px -1px 0 0 rgba(16, 185, 129, 0.05),
+      0 8px 32px 0 rgba(0, 0, 0, 0.36),
+      0 0 24px -4px rgba(16, 185, 129, 0.15);
+  }
+
+  /* Floating Sticky Top Navbar */
+  .glass-navbar {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 15, 29, 0.85) 0%,
+      rgba(10, 15, 29, 0.72) 100%
+    );
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      inset 0 -1px 0 0 rgba(255, 255, 255, 0.04),
+      0 4px 20px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  /* Deep Elevated Spatial Modal */
+  .glass-modal {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.02) 40%,
+      rgba(15, 23, 42, 0.85) 100%
+    );
+    background-color: rgba(10, 15, 29, 0.85);
+    backdrop-filter: blur(32px) saturate(190%);
+    -webkit-backdrop-filter: blur(32px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.20),
+      inset -1px -1px 0 0 rgba(255, 255, 255, 0.03),
+      0 24px 64px -12px rgba(0, 0, 0, 0.65);
+  }
+}
+
+/* =========================================================================
+   Typography & Tabular Numerics Utilities
+   ========================================================================= */
+
+@layer utilities {
+  /* Strict tabular-nums for financial values, amounts, codes, and IDs */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+    -moz-font-feature-settings: "tnum" 1;
+    -webkit-font-feature-settings: "tnum" 1;
+    font-feature-settings: "tnum" 1;
+  }
+
+  /* Combined financial utility */
+  .font-financial {
+    font-family: "Geist Mono", "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "zero" 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* 135-degree specular rim lighting helpers */
+  .rim-135 {
+    box-shadow:
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.12),
+      inset -1px -1px 0 0 rgba(255, 255, 255, 0.02);
+  }
+
+  .rim-135-emerald,
+  .rim-emerald-135 {
+    box-shadow:
+      inset 1px 1px 0 0 rgba(52, 211, 153, 0.25),
+      inset -1px -1px 0 0 rgba(16, 185, 129, 0.05);
+  }
+}
+
+/* =========================================================================
+   AG Grid Community Quartz Dark Spatial Theme Overrides
+   ========================================================================= */
+
+.ag-theme-quartz-dark {
+  --ag-background-color: transparent !important;
+  --ag-header-background-color: rgba(15, 23, 42, 0.75) !important;
+  --ag-odd-row-background-color: rgba(15, 23, 42, 0.35) !important;
+  --ag-border-color: rgba(255, 255, 255, 0.08) !important;
+  --ag-row-border-color: rgba(255, 255, 255, 0.04) !important;
+  --ag-header-column-separator-color: rgba(255, 255, 255, 0.08) !important;
+  --ag-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Inter", sans-serif !important;
+  --ag-font-size: 13px !important;
+  --ag-header-foreground-color: #94A3B8 !important;
+  --ag-data-color: #F1F5F9 !important;
+  --ag-selected-row-background-color: rgba(16, 185, 129, 0.12) !important;
+  --ag-row-hover-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* =========================================================================
+   Fallbacks: Non-supporting browsers & reduced transparency
+   ========================================================================= */
+
+@supports not (backdrop-filter: blur(24px)) {
+  .glass-panel,
+  .glass-navbar,
+  .glass-modal,
+  .glass-panel-emerald {
+    background-color: #0d1424 !important;
+    background-image: none !important;
+    border-color: #1e293b !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel,
+  .glass-navbar,
+  .glass-modal,
+  .glass-panel-emerald {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: #0f172a !important;
   }
 }
 
@@ -25,10 +216,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: rgba(255, 255, 255, 0.10);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: rgba(255, 255, 255, 0.18);
 }

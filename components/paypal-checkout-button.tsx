@@ -58,7 +58,7 @@ export function PayPalCheckoutButton({ order, onPaymentSuccess }: PayPalCheckout
         setScriptLoaded(true);
 
         // Clear existing children
-        containerRef.current.innerHTML = "";
+        try { if (containerRef.current) containerRef.current.innerHTML = ""; } catch (_) {}
 
         if (paypal.Buttons) {
           paypal
@@ -175,8 +175,8 @@ export function PayPalCheckoutButton({ order, onPaymentSuccess }: PayPalCheckout
     };
 
     return (
-      <div className="rounded-xl border border-emerald-500/40 bg-emerald-950/20 p-6 space-y-4">
-        <div className="flex items-center justify-between pb-4 border-b border-emerald-500/30">
+      <div className="rounded-2xl glass-panel-emerald p-6 space-y-4 shadow-rim-135-emerald">
+        <div className="flex items-center justify-between pb-4 border-b border-emerald-500/20">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400">
               <CheckCircle2 className="h-6 w-6" />
@@ -184,7 +184,7 @@ export function PayPalCheckoutButton({ order, onPaymentSuccess }: PayPalCheckout
             <div>
               <h4 className="font-bold text-base text-white flex items-center gap-2">
                 Payment Captured & Reconciled
-                <Badge variant="success" className="text-[10px]">
+                <Badge variant="success" className="text-[10px] font-mono tabular-nums">
                   Sandbox Verified
                 </Badge>
               </h4>
@@ -193,35 +193,35 @@ export function PayPalCheckoutButton({ order, onPaymentSuccess }: PayPalCheckout
               </p>
             </div>
           </div>
-          <span className="font-mono text-xl font-bold text-emerald-400">
+          <span className="font-mono tabular-nums text-xl font-bold text-emerald-400">
             {receipt.amount}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
-          <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono tabular-nums">
+          <div className="p-3 rounded-xl bg-slate-900/60 backdrop-blur-md border border-white/[0.06] space-y-1">
             <span className="text-slate-500 block text-[10px] uppercase">PayPal Capture ID</span>
-            <span className="text-emerald-300 font-semibold select-all">
+            <span className="text-emerald-300 font-semibold select-all font-mono tabular-nums">
               {receipt.captureId}
             </span>
           </div>
 
-          <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+          <div className="p-3 rounded-xl bg-slate-900/60 backdrop-blur-md border border-white/[0.06] space-y-1">
             <span className="text-slate-500 block text-[10px] uppercase">PayPal Order ID</span>
-            <span className="text-slate-200 select-all">{receipt.paypalOrderId}</span>
+            <span className="text-slate-200 select-all font-mono tabular-nums">{receipt.paypalOrderId}</span>
           </div>
 
-          <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+          <div className="p-3 rounded-xl bg-slate-900/60 backdrop-blur-md border border-white/[0.06] space-y-1">
             <span className="text-slate-500 block text-[10px] uppercase">Status & Environment</span>
-            <span className="text-slate-200 flex items-center gap-1.5">
+            <span className="text-slate-200 flex items-center gap-1.5 font-mono tabular-nums">
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
               COMPLETED (PayPal Sandbox)
             </span>
           </div>
 
-          <div className="p-3 rounded-lg bg-slate-900/80 border border-slate-800 space-y-1">
+          <div className="p-3 rounded-xl bg-slate-900/60 backdrop-blur-md border border-white/[0.06] space-y-1">
             <span className="text-slate-500 block text-[10px] uppercase">Capture Timestamp</span>
-            <span className="text-slate-200">
+            <span className="text-slate-200 font-mono tabular-nums">
               {new Date(receipt.timestamp).toLocaleString()}
             </span>
           </div>
@@ -240,12 +240,12 @@ export function PayPalCheckoutButton({ order, onPaymentSuccess }: PayPalCheckout
   return (
     <div className="space-y-4">
       {/* Prominent Sandbox Warning Banner */}
-      <div className="p-3.5 rounded-xl border border-amber-500/40 bg-amber-950/40 text-amber-300 text-xs flex items-start gap-3">
+      <div className="p-3.5 rounded-xl border border-amber-500/30 bg-amber-950/40 backdrop-blur-md text-amber-300 text-xs flex items-start gap-3 shadow-[inset_0_1px_0_0_rgba(251,191,36,0.2)]">
         <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
         <div className="space-y-0.5">
           <p className="font-semibold text-amber-200 flex items-center gap-2">
             <span>PayPal Sandbox Test Environment</span>
-            <Badge variant="warning" className="text-[9px] py-0 px-1.5 uppercase font-mono">
+            <Badge variant="warning" className="text-[9px] py-0 px-1.5 uppercase font-mono tabular-nums">
               Non-Production
             </Badge>
           </p>
@@ -257,30 +257,29 @@ export function PayPalCheckoutButton({ order, onPaymentSuccess }: PayPalCheckout
       </div>
 
       {/* Security Assurance Badge */}
-      <div className="flex items-center justify-between text-xs text-slate-400 bg-slate-950/60 p-3 rounded-lg border border-slate-800/80">
+      <div className="flex items-center justify-between text-xs text-slate-300 bg-slate-950/50 backdrop-blur-md p-3 rounded-xl border border-white/[0.06]">
         <div className="flex items-center gap-2">
           <Lock className="h-3.5 w-3.5 text-emerald-400" />
           <span>Server-Side Capture & Webhook Reconciliation Guardrail</span>
         </div>
-        <span className="font-mono text-white font-medium">
+        <span className="font-mono tabular-nums text-white font-medium">
           {formatMoney(order.total_minor, order.currency)}
         </span>
       </div>
 
       {/* PayPal Smart Buttons Container */}
-      <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4 space-y-3">
-        <div ref={containerRef} className="min-h-[44px] flex flex-col justify-center items-center">
-          {!scriptLoaded && !scriptError && (
-            <div className="py-3 flex items-center justify-center gap-2 text-xs text-slate-400">
-              <div className="h-4 w-4 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin" />
-              Initializing PayPal Sandbox Smart Buttons...
-            </div>
-          )}
-        </div>
+      <div className="rounded-xl border border-white/[0.08] bg-slate-950/40 backdrop-blur-md p-4 space-y-3">
+        {!scriptLoaded && !scriptError && (
+          <div className="py-3 flex items-center justify-center gap-2 text-xs text-slate-400">
+            <div className="h-4 w-4 rounded-full border-2 border-emerald-400 border-t-transparent animate-spin" />
+            Initializing PayPal Sandbox Smart Buttons...
+          </div>
+        )}
+        <div ref={containerRef} className="min-h-[44px] flex flex-col justify-center items-center" />
 
         {/* Fallback & Simulation Button for instant testing */}
-        <div className="pt-2 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-[11px] text-slate-500 flex items-center gap-1.5">
+        <div className="pt-2 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
             <Sparkles className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
             <span>Need one-click sandbox testing without entering buyer credentials?</span>
           </div>

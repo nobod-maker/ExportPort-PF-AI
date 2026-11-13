@@ -91,7 +91,7 @@ export default function OrderQuotationPage() {
   return (
     <div className="space-y-6">
       {/* Top Breadcrumb & Status Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-white/[0.08]">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Link href="/orders" className="text-slate-400 hover:text-slate-200 text-xs flex items-center gap-1">
@@ -99,7 +99,7 @@ export default function OrderQuotationPage() {
               Orders
             </Link>
             <span className="text-slate-600">/</span>
-            <span className="font-mono text-xs text-emerald-400 font-semibold">
+            <span className="font-mono tabular-nums text-xs text-emerald-400 font-semibold">
               {order.order_number}
             </span>
           </div>
@@ -107,7 +107,7 @@ export default function OrderQuotationPage() {
             Quotation Review & Pricing Editor
             <Badge
               variant={order.status === "paid" ? "success" : isQuoted ? "info" : "secondary"}
-              className="text-[10px] uppercase font-mono"
+              className="text-[10px] uppercase font-mono tabular-nums"
             >
               {order.status.replace(/_/g, " ")}
             </Badge>
@@ -129,18 +129,18 @@ export default function OrderQuotationPage() {
 
       {/* Success Notification if just approved */}
       {justApproved && (
-        <div className="p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/40 text-emerald-300 text-xs flex items-center justify-between gap-3 animate-fade-in">
+        <div className="p-4 rounded-2xl border border-emerald-500/40 bg-emerald-950/40 backdrop-blur-md text-emerald-200 text-xs flex items-center justify-between gap-3 animate-fade-in shadow-[inset_0_1px_0_0_rgba(52,211,153,0.25)]">
           <div className="flex items-center gap-2.5">
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <div>
               <p className="font-bold text-white">Quotation Approved & Locked!</p>
               <p className="text-emerald-300/80">
-                The seller approval gate is complete. Total is locked at ${(order.total_minor / 100).toFixed(2)} USD. You can now generate the PayPal Sandbox checkout link.
+                The seller approval gate is complete. Total is locked at <span className="font-mono tabular-nums font-semibold">${(order.total_minor / 100).toFixed(2)} USD</span>. You can now generate the PayPal Sandbox checkout link.
               </p>
             </div>
           </div>
           <Link href={`/orders/${order.id}/pay`}>
-            <Button size="sm" className="h-8 text-xs shrink-0 font-semibold">
+            <Button size="sm" className="h-8 text-xs shrink-0 font-semibold shadow-md shadow-emerald-500/20">
               Checkout Now
               <ArrowRight className="h-3.5 w-3.5 ml-1" />
             </Button>
@@ -149,7 +149,7 @@ export default function OrderQuotationPage() {
       )}
 
       {/* Buyer & Order Context Summary Card */}
-      <Card className="border-slate-800 bg-slate-900/60">
+      <Card className="border-white/[0.08] bg-slate-900/60 backdrop-blur-md shadow-rim-135 rounded-2xl">
         <CardContent className="pt-4 pb-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
             <div>
@@ -158,7 +158,7 @@ export default function OrderQuotationPage() {
                 <Building2 className="h-3.5 w-3.5 text-emerald-400" />
                 {order.buyer?.company_name || order.buyer?.name || "Direct Enquiry"}
               </p>
-              <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+              <p className="text-[11px] text-slate-400 font-mono tabular-nums mt-0.5">
                 {order.buyer?.email || order.ai_extraction?.buyer_email || "No email"}
               </p>
             </div>
@@ -169,7 +169,7 @@ export default function OrderQuotationPage() {
                 <MapPin className="h-3.5 w-3.5 text-sky-400" />
                 {order.destination_country} (Dubai Air Cargo DXB)
               </p>
-              <p className="text-[11px] text-slate-400 mt-0.5 font-mono">
+              <p className="text-[11px] text-slate-400 mt-0.5 font-mono tabular-nums">
                 Currency: {order.currency}
               </p>
             </div>
@@ -178,13 +178,15 @@ export default function OrderQuotationPage() {
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">Inquiry Date</span>
               <p className="font-semibold text-slate-100 flex items-center gap-1.5 mt-0.5">
                 <Clock className="h-3.5 w-3.5 text-slate-400" />
-                {new Date(order.created_at).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
+                <span className="font-mono tabular-nums">
+                  {new Date(order.created_at).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </span>
               </p>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-[11px] text-slate-400 mt-0.5 font-mono tabular-nums">
                 Requested delivery: {order.ai_extraction?.requested_delivery_date || "30 days"}
               </p>
             </div>
@@ -193,7 +195,7 @@ export default function OrderQuotationPage() {
               <span className="text-[10px] text-slate-500 uppercase font-semibold block">AI Confidence</span>
               <p className="font-semibold text-emerald-400 flex items-center gap-1.5 mt-0.5">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                {Math.round((order.ai_confidence || 0.95) * 100)}% Extraction Match
+                <span className="font-mono tabular-nums">{Math.round((order.ai_confidence || 0.95) * 100)}%</span> Extraction Match
               </p>
               <p className="text-[11px] text-slate-400 mt-0.5">
                 Integer minor units verified
@@ -211,7 +213,7 @@ export default function OrderQuotationPage() {
       />
 
       {/* Chronological Activity Timeline */}
-      <div className="pt-4 border-t border-slate-800">
+      <div className="pt-4 border-t border-white/[0.08]">
         <h3 className="text-base font-bold text-white mb-4 flex items-center gap-2">
           <Clock className="h-4 w-4 text-emerald-400" />
           Order Activity & Audit Trail
